@@ -9,6 +9,7 @@ function App() {
 	const [ffmpegLoaded, setFFmpegLoaded] = useState(false);
 	const ffmpegRef = useRef(new FFmpeg());
 	const audioRef = useRef<HTMLAudioElement>(null);
+	const [url, setURL] = useState("");
 
 	useEffect(() => {
 		const load = async () => {
@@ -48,33 +49,50 @@ function App() {
 	}, []);
 
 
-	const onConvert = useCallback(async (e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>) => {
-		const file = e.target.files?.[0];
-		if (!file) return;
+	const onFFMPEgConversion = useCallback(async (source: any) => {
 		const ffmpeg = ffmpegRef.current;
 		try {
 			await ffmpeg.deleteFile(`output.mp3`);
 		} catch (err) {
 			console.error(err);
 		}
-		await ffmpeg.writeFile('input.mp3', await fetchFile(file));
-		const command = `-i input.mp3 output.mp3`.split(' ');
-		await ffmpeg.exec(command);
-		const data: any = await ffmpeg.readFile(`output.mp3`);
-		if (audioRef.current) audioRef.current.src = URL.createObjectURL(new Blob([data], { type: 'audio/mpeg' }));;
+		try {
+			await ffmpeg.writeFile('input.mp3', await fetchFile(source));
+			const command = `-i input.mp3 output.mp3`.split(' ');
+			await ffmpeg.exec(command);
+			const data: any = await ffmpeg.readFile(`output.mp3`);
+			if (audioRef.current) audioRef.current.src = URL.createObjectURL(new Blob([data], { type: 'audio/mpeg' }));;
 
+		} catch (e) {
+			alert(e.message);
+		}
 	}, [ffmpegRef, audioRef])
+
+	const onUrlPlayblack = (url: string) => {
+		if (!url.trim()) return;
+		onFFMPEgConversion(url);
+	}
+
+	const onUpload = (e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>) => {
+		const file = e.target.files?.[0];
+		if (!file) return;
+		onFFMPEgConversion(file);
+	}
 
 
 	return (
-		<main>
+		<main style={{ width: "100vw", height: "100vh" }}>
 			{ffmpegLoaded ?
-				<section>
-					<input type="file" onChange={onConvert} />
+				<section style={{ display: "flex", flexDirection: "column", gap: 8, justifyContent: "center", alignItems: "center" }}>
+					<label>Upload Audio</label>
+					<input type="file" onChange={onUpload} accept='audio/*' />
+					<label>Or Enter Audio URL</label>
+					<input type="url" name="url" placeholder="Enter Audio URL" value={url} onChange={e => setURL(e.target.value)} />
+					<button onClick={() => onUrlPlayblack(url)}>Convert and Play Audio URL</button>
 					<audio controls ref={audioRef} />
 				</section>
 				:
-				<div>Loading...</div>
+				<div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }}>Loading...</div>
 			}
 		</main>
 	)
