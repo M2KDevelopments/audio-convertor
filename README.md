@@ -1,75 +1,73 @@
-# React + TypeScript + Vite
+# Audio Converter
+A lightweight, efficient tool that leverages the power of FFmpeg to convert various audio formats into MP3. This ensures your audio files are compatible with almost any modern media player, mobile device, or web browser.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 🚀 Features
+FFmpeg Powered: Uses industry-standard processing for high-fidelity audio conversion.
 
-Currently, two official plugins are available:
+MP3 Optimization: Automatically converts files to MP3 format for maximum playability.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Simple Workflow: Streamlined process to go from raw audio to a playable file in seconds.
 
-## React Compiler
+Cross-Format Support: Convert from WAV, AAC, OGG, FLAC, and more.
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+## 🛠 Prerequisites
+Before running this project, ensure you have the following installed:
 
-Note: This will impact Vite dev & build performances.
+Node.js (or your specific language runtime, e.g., Python/Go)
 
-## Expanding the ESLint configuration
+FFmpeg: The core engine for conversion.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+macOS: brew install ffmpeg
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Ubuntu/Debian: sudo apt install ffmpeg
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Windows: Download from ffmpeg.org and add to your PATH.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 📦 Installation
+Clone the repository and install the dependencies:
+
+```bash
+git clone https://github.com/M2KDevelopments/audio-convertor.git
+cd audio-convertor
+npm install  # Or the relevant install command for your project
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 📖 Usage
+To convert an audio file to MP3, run the following command:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+# Example command (update based on your specific script name)
+node convert.js input_file.wav output_file.mp3
 ```
+
+## How it Works
+The application takes your source file and passes it through an FFmpeg pipeline.
+
+FFmpeg decodes the source audio stream and re-encodes it using the libmp3lame codec, which is the gold standard for MP3 compression. This process preserves as much audio detail as possible while significantly reducing file size.
+
+## 🔧 Configuration
+You can adjust the output quality by modifying the bitrate settings in the configuration:
+
+Standard: 128kbps (Good for voice)
+
+High Quality: 192kbps (Standard for music)
+
+Extreme: 320kbps (Best for audiophiles)
+
+## 🤝 Contributing
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## Fork the Project
+
+Create your Feature Branch (git checkout -b feature/AmazingFeature)
+
+Commit your Changes (git commit -m 'Add some AmazingFeature')
+
+Push to the Branch (git push origin feature/AmazingFeature)
+
+Open a Pull Request
+
+## 📄 License
+Distributed under the MIT License. See LICENSE for more information.
+
+Developed by M2K Developments
