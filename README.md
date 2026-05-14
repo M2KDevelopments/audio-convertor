@@ -10,18 +10,6 @@ Simple Workflow: Streamlined process to go from raw audio to a playable file in 
 
 Cross-Format Support: Convert from WAV, AAC, OGG, FLAC, and more.
 
-## 🛠 Prerequisites
-Before running this project, ensure you have the following installed:
-
-Node.js (or your specific language runtime, e.g., Python/Go)
-
-FFmpeg: The core engine for conversion.
-
-macOS: brew install ffmpeg
-
-Ubuntu/Debian: sudo apt install ffmpeg
-
-Windows: Download from ffmpeg.org and add to your PATH.
 
 ## 📦 Installation
 Clone the repository and install the dependencies:
@@ -32,13 +20,6 @@ cd audio-convertor
 npm install  # Or the relevant install command for your project
 ```
 
-## 📖 Usage
-To convert an audio file to MP3, run the following command:
-
-```bash
-# Example command (update based on your specific script name)
-node convert.js input_file.wav output_file.mp3
-```
 
 ## How it Works
 The application takes your source file and passes it through an FFmpeg pipeline.
